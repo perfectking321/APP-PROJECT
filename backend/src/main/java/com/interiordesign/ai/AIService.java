@@ -40,6 +40,12 @@ public class AIService {
     @Value("${openrouter.model}")
     private String model;
     
+    @Value("${openrouter.app.name:Interior Design App}")
+    private String appName;
+    
+    @Value("${openrouter.site.url:http://localhost:3000}")
+    private String siteUrl;
+    
     @Value("${ai.timeout.seconds}")
     private int timeoutSeconds;
     
@@ -119,6 +125,8 @@ public class AIService {
                     .uri(apiUrl)
                     .header("Authorization", "Bearer " + apiKey)
                     .header("Content-Type", "application/json")
+                    .header("HTTP-Referer", siteUrl)
+                    .header("X-Title", appName)
                     .bodyValue(requestBody)
                     .retrieve()
                     .bodyToMono(String.class)
@@ -136,7 +144,7 @@ public class AIService {
             
         } catch (WebClientResponseException e) {
             logger.error("OpenRouter API error: {} - {}", e.getStatusCode(), e.getResponseBodyAsString());
-            throw new AIServiceException("OpenRouter API error: " + e.getMessage(), e);
+            throw new AIServiceException("OpenRouter API error: " + e.getStatusCode() + " " + e.getStatusText() + " from POST " + apiUrl, e);
         } catch (Exception e) {
             logger.error("Failed to call OpenRouter API", e);
             throw new AIServiceException("Failed to call AI service: " + e.getMessage(), e);

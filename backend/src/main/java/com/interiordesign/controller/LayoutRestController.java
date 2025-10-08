@@ -37,6 +37,31 @@ public class LayoutRestController {
     }
     
     /**
+     * Root welcome endpoint
+     * GET /api
+     * 
+     * @return API information
+     */
+    @GetMapping("")
+    public ResponseEntity<Map<String, Object>> welcome() {
+        logger.info("Welcome endpoint accessed");
+        
+        Map<String, Object> response = new HashMap<>();
+        response.put("service", "Interior Design API");
+        response.put("version", "1.0.0");
+        response.put("status", "running");
+        response.put("endpoints", Map.of(
+            "health", "/api/health",
+            "furniture", "/api/furniture (GET)",
+            "layout", "/api/layout (POST)",
+            "h2Console", "/h2-console"
+        ));
+        response.put("message", "Welcome to Interior Design API! This is a REST API. Please use the frontend at http://localhost:3000");
+        
+        return ResponseEntity.ok(response);
+    }
+    
+    /**
      * Health check endpoint
      * GET /api/health
      * 
