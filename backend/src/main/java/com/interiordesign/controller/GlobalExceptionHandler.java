@@ -9,6 +9,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -22,6 +23,17 @@ import java.util.Map;
 public class GlobalExceptionHandler {
     
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    
+    /**
+     * Handle missing static resources (like favicon.ico)
+     * Return 404 without logging errors for common browser requests
+     */
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<Void> handleNoResourceFound(NoResourceFoundException ex) {
+        // Silently return 404 for favicon and browser-specific requests
+        // These are common browser requests and not actual errors
+        return ResponseEntity.notFound().build();
+    }
     
     /**
      * Handle validation errors from @Valid annotations
