@@ -2,9 +2,14 @@ import React from 'react';
 import { FURNITURE_COLORS, FURNITURE_ICONS } from '../utils/constants';
 
 const FurnitureItem = ({ furniture, scale }) => {
+  // Handle both nested (FurniturePosition) and flat structure
+  const furnitureData = furniture.furniture || furniture;
+  const xPos = furniture.x ?? 0;
+  const yPos = furniture.y ?? 0;
+
   // Get color and icon for furniture type
-  const color = FURNITURE_COLORS[furniture.name] || FURNITURE_COLORS['Default'];
-  const icon = FURNITURE_ICONS[furniture.name] || FURNITURE_ICONS['Default'];
+  const color = FURNITURE_COLORS[furnitureData.name] || FURNITURE_COLORS['Default'];
+  const icon = FURNITURE_ICONS[furnitureData.name] || FURNITURE_ICONS['Default'];
 
   // Calculate darker border color
   const darkenColor = (hex) => {
@@ -17,10 +22,10 @@ const FurnitureItem = ({ furniture, scale }) => {
   const borderColor = darkenColor(color);
 
   // Calculate position and size in pixels
-  const left = furniture.x * scale;
-  const top = furniture.y * scale;
-  const width = furniture.width * scale;
-  const height = furniture.length * scale;
+  const left = xPos * scale;
+  const top = yPos * scale;
+  const width = (furnitureData.width ?? 0) * scale;
+  const height = (furnitureData.length ?? 0) * scale;
 
   return (
     <div
@@ -33,7 +38,7 @@ const FurnitureItem = ({ furniture, scale }) => {
         backgroundColor: color,
         border: `2px solid ${borderColor}`,
       }}
-      title={`${furniture.name} - $${furniture.price.toFixed(2)}`}
+      title={`${furnitureData.name} - $${(furnitureData.price ?? 0).toFixed(2)}`}
     >
       {/* Icon */}
       <div className="text-2xl md:text-3xl" style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))' }}>
@@ -43,7 +48,7 @@ const FurnitureItem = ({ furniture, scale }) => {
       {/* Label */}
       <div className="text-xs md:text-sm font-semibold text-white mt-1 px-2" 
            style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.5)' }}>
-        {furniture.name}
+        {furnitureData.name}
       </div>
     </div>
   );

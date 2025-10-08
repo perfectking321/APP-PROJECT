@@ -103,38 +103,45 @@ const LayoutDisplay = ({ layoutResult, roomData, onReset }) => {
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {furniture.map((item, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-xl p-4 shadow hover:shadow-lg hover:scale-105 transition-all cursor-pointer"
-                >
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center space-x-3">
-                      <span className="text-3xl">
-                        {FURNITURE_ICONS[item.name] || FURNITURE_ICONS['Default']}
-                      </span>
-                      <div>
-                        <h3 className="font-bold text-charcoal text-lg">
-                          {item.name}
-                        </h3>
-                        <p className="text-sm text-gray-600 flex items-center mt-1">
-                          <MapPin className="w-3 h-3 mr-1" />
-                          At ({item.x.toFixed(1)}m, {item.y.toFixed(1)}m)
-                        </p>
-                        <p className="text-sm text-gray-600">
-                          Size: {item.width.toFixed(1)}m × {item.length.toFixed(1)}m
-                        </p>
+              {furniture.map((item, index) => {
+                // Handle both nested (FurniturePosition) and flat structure
+                const furnitureData = item.furniture || item;
+                const xPos = item.x ?? 0;
+                const yPos = item.y ?? 0;
+                
+                return (
+                  <div
+                    key={index}
+                    className="bg-white rounded-xl p-4 shadow hover:shadow-lg hover:scale-105 transition-all cursor-pointer"
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center space-x-3">
+                        <span className="text-3xl">
+                          {FURNITURE_ICONS[furnitureData.name] || FURNITURE_ICONS['Default']}
+                        </span>
+                        <div>
+                          <h3 className="font-bold text-charcoal text-lg">
+                            {furnitureData.name}
+                          </h3>
+                          <p className="text-sm text-gray-600 flex items-center mt-1">
+                            <MapPin className="w-3 h-3 mr-1" />
+                            At ({xPos.toFixed(1)}m, {yPos.toFixed(1)}m)
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            Size: {(furnitureData.width ?? 0).toFixed(1)}m × {(furnitureData.length ?? 0).toFixed(1)}m
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="flex items-center justify-end text-warm-600 font-bold text-lg">
-                        <DollarSign className="w-4 h-4" />
-                        {item.price.toFixed(2)}
+                      <div className="text-right">
+                        <div className="flex items-center justify-end text-warm-600 font-bold text-lg">
+                          <DollarSign className="w-4 h-4" />
+                          {(furnitureData.price ?? 0).toFixed(2)}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {furniture.length === 0 && (
