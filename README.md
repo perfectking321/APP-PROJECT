@@ -64,19 +64,27 @@ The frontend will start on `http://localhost:3000`
 ## 📸 Screenshots
 
 ### Main Interface
-![Main Interface](screenshots/main-interface.png)
+![Main Interface](screenshot/Home.png)
 *Clean, modern interface with glassmorphism design for entering room dimensions and budget*
 
+### Floor Plan
+![Furniture Details](screenshot/FloorPlan.png)
+*Interactive furniture list showing dimensions, prices, and placement details*
+
 ### Room Layout Generation
-![Layout Generation](screenshots/layout-generation.png)
+![Layout Generation](screenshot/Loading.png)
 *AI-generated furniture layout with 2D floor plan visualization*
 
 ### Budget Summary
-![Budget Summary](screenshots/budget-summary.png)
+![Budget Summary](screenshot/CostSummary.png)
 *Real-time cost tracking with progress indicators and detailed breakdown*
 
 ### Furniture Details
-![Furniture Details](screenshots/furniture-details.png)
+![Furniture Details](screenshots/FurnitureDetails.png)
+*Interactive furniture list showing dimensions, prices, and placement details*
+
+### Room Layout
+![Furniture Details](screenshot/roomLayout.png)
 *Interactive furniture list showing dimensions, prices, and placement details*
 
 ---
