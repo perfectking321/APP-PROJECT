@@ -76,7 +76,7 @@ The frontend will start on `http://localhost:3000`
 ![Budget Summary](screenshot/CostSummary.png)
 
 ### Furniture Details
-![Furniture Details](screenshots/FurnitureDetails.png)
+![Furniture Details](screenshot/FurnitureDetails.png)
 
 ### Room Layout
 ![Furniture Details](screenshot/roomLayout.png)
