@@ -82,5 +82,3 @@ The frontend will start on `http://localhost:3000`
 ![Furniture Details](screenshot/roomLayout.png)
 
 ---
-
-Built with ❤️ using React, Spring Boot, and AI
